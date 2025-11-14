@@ -316,7 +316,7 @@ let
   };
 
   mkCreateCommandImportTarDumpCommandAssertion = name: cfg: {
-    assertion = cfg.createCommand != "import-tar" || cfg.dumpCommand != null;
+    assertion = cfg.createCommand == "import-tar" -> cfg.dumpCommand != null;
     message = ''
       Option borgbackup.jobs.${name}.dumpCommand is required when createCommand
       is set to "import-tar".
@@ -324,7 +324,7 @@ let
   };
 
   mkCreateCommandImportTarExclusionsAssertion = name: cfg: {
-    assertion = cfg.createCommand != "import-tar" || (cfg.exclude == [ ] && cfg.patterns == [ ]);
+    assertion = cfg.createCommand == "import-tar" -> (cfg.exclude == [ ] && cfg.patterns == [ ]);
     message = ''
       Options borgbackup.jobs.${name}.exclude and
       borgbackup.jobs.${name}.patterns have no effect when createCommand is set
